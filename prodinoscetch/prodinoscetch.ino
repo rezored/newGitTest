@@ -236,41 +236,41 @@ void publishDHTSensorData(bool isForceSend)
   if (millis() > _mesureTimeout || isForceSend)
   {
     _dhtSensor0.read(true);
-    float humidity = _dhtSensor0.readHumidity();
-    float temperature = _dhtSensor0.readTemperature();
+    float humidity0 = _dhtSensor0.readHumidity();
+    float temperature0 = _dhtSensor0.readTemperature();
 
-    if (_dht[0][0] != humidity || isForceSend)
+    if (_dht[0][0] != humidity0 || isForceSend)
     {
-      _dht[0][0] = humidity;
-      FloatToChars(humidity, 1, _payload);
+      _dht[0][0] = humidity0;
+      FloatToChars(humidity0, 1, _payload);
       strConcatenate(_topic, 5, MAIN_TOPIC, TOPIC_SEPARATOR, 0, TOPIC_SEPARATOR, HUMIDITY_SENSOR); // kmp/prodinowifi/0/humidity
       publish(_topic, _payload);
     }
 
-    if (_dht[0][1] != temperature || isForceSend)
+    if (_dht[0][1] != temperature0 || isForceSend)
     {
-      _dht[0][1] = temperature;
-      FloatToChars(temperature, 1, _payload);
+      _dht[0][1] = temperature0;
+      FloatToChars(temperature0, 1, _payload);
       strConcatenate(_topic, 5, MAIN_TOPIC, TOPIC_SEPARATOR, 0, TOPIC_SEPARATOR, TEMPERATURE_SENSOR); // kmp/prodinowifi/0/temperature
       publish(_topic, _payload);
     }
 
     _dhtSensor1.read(true);
-    float humidity = _dhtSensor1.readHumidity();
-    float temperature = _dhtSensor1.readTemperature();
+    float humidity1 = _dhtSensor1.readHumidity();
+    float temperature1 = _dhtSensor1.readTemperature();
 
-    if (_dht[1][0] != humidity || isForceSend)
+    if (_dht[1][0] != humidity1 || isForceSend)
     {
-      _dht[1][0] = humidity;
-      FloatToChars(humidity, 1, _payload);
+      _dht[1][0] = humidity1;
+      FloatToChars(humidity1, 1, _payload);
       strConcatenate(_topic, 5, MAIN_TOPIC, TOPIC_SEPARATOR, 1, TOPIC_SEPARATOR, HUMIDITY_SENSOR); // kmp/prodinowifi/1/humidity
       publish(_topic, _payload);
     }
 
-    if (_dht[1][1] != temperature || isForceSend)
+    if (_dht[1][1] != temperature1 || isForceSend)
     {
-      _dht[1][1] = temperature;
-      FloatToChars(temperature, 1, _payload);
+      _dht[1][1] = temperature1;
+      FloatToChars(temperature1, 1, _payload);
       strConcatenate(_topic, 5, MAIN_TOPIC, TOPIC_SEPARATOR, 1, TOPIC_SEPARATOR, TEMPERATURE_SENSOR); // kmp/prodinowifi/1/temperature
       publish(_topic, _payload);
     }
