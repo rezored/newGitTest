@@ -61,7 +61,7 @@ PubSubClient _mqttClient;
 DHT _dhtSensor0(EXT_GROVE_D0, DHT22, 11);
 DHT _dhtSensor1(EXT_GROVE_D1, DHT22, 11); //new port initialised 
 // Contains last measured humidity and temperature from the sensor.
-float _dht[2];
+float _dht[2][2];
 // Store last measure time.
 unsigned long _mesureTimeout;
 
@@ -239,19 +239,19 @@ void publishDHTSensorData(bool isForceSend)
     float humidity = _dhtSensor0.readHumidity();
     float temperature = _dhtSensor0.readTemperature();
 
-    if (_dht[0] != humidity || isForceSend)
+    if (_dht[0][0] != humidity || isForceSend)
     {
-      _dht[0] = humidity;
+      _dht[0][0] = humidity;
       FloatToChars(humidity, 1, _payload);
-      strConcatenate(_topic, 3, MAIN_TOPIC, TOPIC_SEPARATOR, 0, TOPIC_SEPARATOR, HUMIDITY_SENSOR); // kmp/prodinowifi/0/humidity
+      strConcatenate(_topic, 5, MAIN_TOPIC, TOPIC_SEPARATOR, 0, TOPIC_SEPARATOR, HUMIDITY_SENSOR); // kmp/prodinowifi/0/humidity
       publish(_topic, _payload);
     }
 
-    if (_dht[1] != temperature || isForceSend)
+    if (_dht[0][1] != temperature || isForceSend)
     {
-      _dht[1] = temperature;
+      _dht[0][1] = temperature;
       FloatToChars(temperature, 1, _payload);
-      strConcatenate(_topic, 3, MAIN_TOPIC, TOPIC_SEPARATOR, 0, TOPIC_SEPARATOR, TEMPERATURE_SENSOR); // kmp/prodinowifi/0/temperature
+      strConcatenate(_topic, 5, MAIN_TOPIC, TOPIC_SEPARATOR, 0, TOPIC_SEPARATOR, TEMPERATURE_SENSOR); // kmp/prodinowifi/0/temperature
       publish(_topic, _payload);
     }
 
@@ -259,19 +259,19 @@ void publishDHTSensorData(bool isForceSend)
     float humidity = _dhtSensor1.readHumidity();
     float temperature = _dhtSensor1.readTemperature();
 
-    if (_dht[0] != humidity || isForceSend)
+    if (_dht[1][0] != humidity || isForceSend)
     {
-      _dht[0] = humidity;
+      _dht[1][0] = humidity;
       FloatToChars(humidity, 1, _payload);
-      strConcatenate(_topic, 3, MAIN_TOPIC, TOPIC_SEPARATOR, 1, TOPIC_SEPARATOR, HUMIDITY_SENSOR); // kmp/prodinowifi/1/humidity
+      strConcatenate(_topic, 5, MAIN_TOPIC, TOPIC_SEPARATOR, 1, TOPIC_SEPARATOR, HUMIDITY_SENSOR); // kmp/prodinowifi/1/humidity
       publish(_topic, _payload);
     }
 
-    if (_dht[1] != temperature || isForceSend)
+    if (_dht[1][1] != temperature || isForceSend)
     {
-      _dht[1] = temperature;
+      _dht[1][1] = temperature;
       FloatToChars(temperature, 1, _payload);
-      strConcatenate(_topic, 3, MAIN_TOPIC, TOPIC_SEPARATOR, 1, TOPIC_SEPARATOR, TEMPERATURE_SENSOR); // kmp/prodinowifi/1/temperature
+      strConcatenate(_topic, 5, MAIN_TOPIC, TOPIC_SEPARATOR, 1, TOPIC_SEPARATOR, TEMPERATURE_SENSOR); // kmp/prodinowifi/1/temperature
       publish(_topic, _payload);
     }
 
